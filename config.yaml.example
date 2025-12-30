@@ -1,0 +1,125 @@
+# JARVIS Configuration - Phase 2
+
+# Audio settings
+audio:
+  sample_rate: 16000
+  channels: 1
+  chunk_size: 1024
+  input_device: null  # null = default device
+
+# Wake word detection
+wake_word:
+  model: "hey_jarvis_v0.1"  # Modelo incluido en OpenWakeWord
+  threshold: 0.5
+  fallback_model: "alexa_v0.1"
+
+# Speech-to-Text (Vosk)
+stt:
+  model_path: "models/vosk-model-small-es-0.42"
+  # Alternative: vosk-model-small-en-us-0.15 for English
+  language: "es"
+  silence_timeout: 2.0  # seconds of silence to end recording
+  max_recording_time: 30.0  # max seconds to record
+
+# Text-to-Speech (Piper)
+tts:
+  model_path: "models/es_ES-davefx-medium.onnx"
+  # Voice speed (1.0 = normal)
+  speed: 1.0
+  # Speaker ID (for multi-speaker models)
+  speaker_id: 0
+
+# Claude CLI integration
+claude:
+  command: "claude"
+  timeout: 60  # seconds
+
+# JARVIS Personality (Phase 2)
+personality:
+  # User name (optional - JARVIS will use "señor" occasionally if not set)
+  # Note: If user introduces themselves, JARVIS will remember it
+  user_name: null
+  # Formality level: "formal" or "casual"
+  formality_level: "formal"
+
+# Memory and Context (Phase 3)
+memory:
+  # SQLite database path for persistent memory
+  db_path: "memory/jarvis_memory.db"
+  # Maximum conversation history to include in context
+  max_context_messages: 10
+
+# System Monitoring (Phase 4)
+monitor:
+  # Check interval in seconds
+  check_interval: 30.0
+  # Alert thresholds
+  cpu_threshold: 90.0
+  cpu_sustained_minutes: 5
+  ram_threshold: 85.0
+  disk_threshold: 90.0
+  temp_threshold: 80.0
+
+# System Control (Phase 5)
+control:
+  # Action log file
+  log_file: "logs/actions.log"
+
+# Reminders and Calendar (Phase 6)
+reminders:
+  # Reminders database path
+  db_path: "memory/reminders.db"
+  # Check interval in seconds
+  check_interval: 30.0
+  # Work break reminder interval in minutes
+  work_break_interval: 60
+
+calendar:
+  # ICS calendar files (null = auto-discover)
+  ics_paths: null
+  # Minutes before meeting to send reminders
+  reminder_minutes: [15, 5]
+
+# Developer Tools (Phase 7)
+dev_tools:
+  # Working directory for git/docker commands (null = current directory)
+  working_dir: null
+  # Maximum lines to read from files
+  max_file_lines: 100
+  # Maximum lines from logs
+  max_log_lines: 50
+
+# Screen Vision (Phase 8)
+screen_vision:
+  # Capture tool preference (null = auto-detect: spectacle, scrot, import)
+  capture_tool: null
+
+# Camera Vision (Phase 9)
+camera_vision:
+  # Camera device (null = auto-detect /dev/video0)
+  device: null
+  # Capture tool preference (null = auto-detect: ffmpeg, fswebcam)
+  capture_tool: null
+
+# Input Control (Phase 10)
+input_control:
+  # Demo mode: shows what would happen without executing
+  demo_mode: false
+  # Maximum actions per sequence before requiring reset
+  max_actions: 10
+
+# Behavior
+behavior:
+  # Sound feedback
+  play_sounds: true
+  # Allow interruption while speaking
+  allow_barge_in: true
+  # Shutdown command
+  shutdown_phrase: "apágate"
+  # Confirmation phrases
+  wake_confirmation: "A sus órdenes"
+
+# Logging
+logging:
+  level: "INFO"
+  file: "logs/jarvis.log"

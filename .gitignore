@@ -28,8 +28,8 @@ ENV/
 # Models (large files - download via install.sh)
 models/
 
-# Memory and Data
-memory/
+# Memory and Data (exclude db files, keep Python code)
+memory/*.db
 *.db
 
 # Logs

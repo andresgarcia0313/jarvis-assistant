@@ -2,7 +2,9 @@
 
 Asistente de voz inspirado en JARVIS de Iron Man, con procesamiento de voz 100% local y Claude como cerebro.
 
-**Repositorio:** https://devops.ingeniumcodex.com/devops/jarvis
+**Repositorios:**
+- GitHub: https://github.com/andresgarcia0313/jarvis-assistant
+- Gitea: https://devops.ingeniumcodex.com/devops/jarvis
 
 ## Características
 

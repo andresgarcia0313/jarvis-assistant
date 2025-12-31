@@ -268,7 +268,7 @@ modules/
 
 - [x] Fase 1-13: Core completo
 - [x] Refactor UI: Arquitectura Vue-style (componentes autocontenidos)
-- [x] Repositorio: https://devops.ingeniumcodex.com/devops/jarvis
+- [x] Repositorios: GitHub + Gitea
 - [ ] Fase 14: Integración Web
 - [ ] Fase 15: Proactividad
 - [ ] Fase 16: Voz Natural

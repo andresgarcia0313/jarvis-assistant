@@ -6,7 +6,10 @@
 
 **Fases Completadas:** 1-13 (Core completo + GUI)
 **Fase Actual:** Mejoras y optimizaciones
-**Repositorio:** https://devops.ingeniumcodex.com/devops/jarvis
+
+**Repositorios:**
+- GitHub: https://github.com/andresgarcia0313/jarvis-assistant
+- Gitea: https://devops.ingeniumcodex.com/devops/jarvis
 
 ### Lo que funciona:
 - Wake word detection (OpenWakeWord)
@@ -182,18 +185,25 @@ Jarvis/
 
 ---
 
-## Repositorio Git
+## Repositorios Git
 
-- **URL:** https://devops.ingeniumcodex.com/devops/jarvis
-- **Branch:** main
-- **Credenciales:** devops / asde71.4
+| Remote | URL | Notas |
+|--------|-----|-------|
+| github | https://github.com/andresgarcia0313/jarvis-assistant | Publico |
+| origin | https://devops.ingeniumcodex.com/devops/jarvis | Gitea privado (devops/asde71.4) |
 
 ### Push cambios
 
 ```bash
 git add -A
 git commit -m "tipo(scope): descripcion"
-git push origin main
+
+# Push a ambos
+git push origin main && git push github main
+
+# O push a uno solo
+git push github main   # GitHub
+git push origin main   # Gitea
 ```
 
 ---

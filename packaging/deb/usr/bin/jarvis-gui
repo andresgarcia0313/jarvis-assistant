@@ -1,0 +1,8 @@
+#!/bin/bash
+# JARVIS GUI Launcher
+
+INSTALL_DIR="/usr/share/jarvis"
+VENV_DIR="$INSTALL_DIR/venv"
+
+cd "$INSTALL_DIR"
+exec "$VENV_DIR/bin/python" "$INSTALL_DIR/jarvis_gui.py" "$@"

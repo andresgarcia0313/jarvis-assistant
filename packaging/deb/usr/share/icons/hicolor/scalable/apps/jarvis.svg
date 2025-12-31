@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- Fondo circular oscuro -->
+  <circle cx="64" cy="64" r="60" fill="#0a0a0a" stroke="#1a5f7a" stroke-width="2"/>
+
+  <!-- Anillo exterior brillante -->
+  <circle cx="64" cy="64" r="52" fill="none" stroke="#00d4ff" stroke-width="3" opacity="0.8"/>
+
+  <!-- Anillo medio -->
+  <circle cx="64" cy="64" r="40" fill="none" stroke="#00d4ff" stroke-width="2" opacity="0.5"/>
+
+  <!-- Núcleo central (arc reactor style) -->
+  <circle cx="64" cy="64" r="25" fill="#001a20" stroke="#00d4ff" stroke-width="2"/>
+
+  <!-- Triángulo central (referencia a Tony Stark) -->
+  <polygon points="64,45 50,75 78,75" fill="none" stroke="#00d4ff" stroke-width="2" opacity="0.9"/>
+
+  <!-- Punto central brillante -->
+  <circle cx="64" cy="62" r="8" fill="#00d4ff" opacity="0.9"/>
+  <circle cx="64" cy="62" r="4" fill="#ffffff"/>
+
+  <!-- Líneas radiales -->
+  <g stroke="#00d4ff" stroke-width="1" opacity="0.4">
+    <line x1="64" y1="12" x2="64" y2="24"/>
+    <line x1="64" y1="104" x2="64" y2="116"/>
+    <line x1="12" y1="64" x2="24" y2="64"/>
+    <line x1="104" y1="64" x2="116" y2="64"/>
+    <line x1="27" y1="27" x2="36" y2="36"/>
+    <line x1="92" y1="92" x2="101" y2="101"/>
+    <line x1="101" y1="27" x2="92" y2="36"/>
+    <line x1="36" y1="92" x2="27" y2="101"/>
+  </g>
+
+  <!-- Efecto de brillo -->
+  <circle cx="64" cy="64" r="58" fill="none" stroke="url(#glow)" stroke-width="4"/>
+
+  <defs>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:0.3"/>
+      <stop offset="50%" style="stop-color:#00d4ff;stop-opacity:0"/>
+      <stop offset="100%" style="stop-color:#00d4ff;stop-opacity:0.3"/>
+    </linearGradient>
+  </defs>
+</svg>

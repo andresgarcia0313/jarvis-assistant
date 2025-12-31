@@ -1,0 +1,12 @@
+Package: jarvis-assistant
+Version: 1.9.0
+Section: utils
+Priority: optional
+Architecture: amd64
+Depends: python3 (>= 3.10), python3-pyqt5, portaudio19-dev, espeak-ng, ffmpeg
+Maintainer: Andres Garcia <andresgarcia0313@gmail.com>
+Description: JARVIS Voice Assistant
+ Asistente de voz inspirado en JARVIS de Iron Man.
+ Procesamiento de voz 100% local con Vosk y Piper.
+ Interfaz grafica minimalista con PyQt5.
+Homepage: https://github.com/andresgarcia0313/jarvis

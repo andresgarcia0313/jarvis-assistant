@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=JARVIS
+GenericName=Voice Assistant
+Comment=Asistente de voz inspirado en Iron Man
+Exec=/usr/bin/jarvis-gui
+Icon=jarvis
+Terminal=false
+Type=Application
+Categories=Utility;Audio;
+Keywords=voice;assistant;jarvis;ironman;stt;
+StartupNotify=true
+StartupWMClass=jarvis

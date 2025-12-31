@@ -267,6 +267,8 @@ modules/
 ## Progreso
 
 - [x] Fase 1-13: Core completo
+- [x] Refactor UI: Arquitectura Vue-style (componentes autocontenidos)
+- [x] Repositorio: https://devops.ingeniumcodex.com/devops/jarvis
 - [ ] Fase 14: Integración Web
 - [ ] Fase 15: Proactividad
 - [ ] Fase 16: Voz Natural
@@ -279,4 +281,24 @@ modules/
 
 ---
 
-*Última actualización: 2024-12-30*
+## Notas de Implementación
+
+### Arquitectura UI Vue-style (2025-12-31)
+
+Componentes en `ui/components/`:
+- `theme.py` - Constantes de color compartidas
+- `header.py` - Título + botones CONFIG/STANDBY
+- `audio_bar.py` - Barra de nivel de audio
+- `text_panels.py` - VoiceInput, AIResponse, SystemLog
+- `controls.py` - Botones ACTIVATE/CLEAR
+- `diagnostics_screen.py` - Pantalla de diagnósticos
+- `main_screen.py` - Composición de todos los componentes
+
+Cada componente:
+- Es autocontenido con estilos inline
+- Tiene bloque `if __name__ == "__main__":` para testing
+- Sigue principio de mínimo código necesario
+
+---
+
+*Última actualización: 2025-12-31*

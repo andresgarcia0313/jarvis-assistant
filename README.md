@@ -2,6 +2,8 @@
 
 Asistente de voz inspirado en JARVIS de Iron Man, con procesamiento de voz 100% local y Claude como cerebro.
 
+**Repositorio:** https://devops.ingeniumcodex.com/devops/jarvis
+
 ## Características
 
 ### Core
@@ -153,13 +155,15 @@ journalctl -u jarvis -f
 ## Estructura del Proyecto
 
 ```
-JarvisIronMan/
-├── jarvis.py              # Orquestador principal
+Jarvis/
+├── jarvis.py              # Orquestador CLI
+├── jarvis_gui.py          # Punto de entrada GUI
 ├── config.yaml            # Configuración
 ├── requirements.txt       # Dependencias Python
 ├── install.sh             # Script de instalación
+├── build_deb.sh           # Construcción paquete .deb
 │
-├── modules/
+├── modules/               # Lógica de negocio
 │   ├── stt.py             # Speech-to-Text (Vosk)
 │   ├── tts.py             # Text-to-Speech (Piper)
 │   ├── wake_word.py       # Detección wake word
@@ -174,38 +178,52 @@ JarvisIronMan/
 │   ├── screen_vision.py   # Visión de pantalla
 │   ├── camera_vision.py   # Visión de cámara
 │   ├── input_control.py   # Control mouse/teclado
-│   └── visual_automation.py # Automatización
+│   └── visual_automation.py
+│
+├── ui/                    # Interfaz gráfica (arquitectura Vue-style)
+│   ├── hud_gui.py         # GUI principal
+│   ├── hud_style.py       # Compatibilidad legacy
+│   ├── live_listener.py   # Thread de audio
+│   ├── jarvis_brain.py    # Lógica de procesamiento
+│   ├── config_dialog.py   # Diálogo configuración
+│   ├── tts_engine.py      # Motor TTS
+│   ├── audio_devices.py   # Gestión dispositivos
+│   ├── audio_processor.py # Procesamiento audio
+│   ├── vad_detector.py    # Voice Activity Detection
+│   ├── beamformer.py      # Beamforming
+│   ├── logger_config.py   # Config logs
+│   ├── diagnostics.py     # Diagnósticos
+│   └── components/        # Componentes autocontenidos
+│       ├── theme.py       # Paleta de colores
+│       ├── header.py      # Título + CONFIG + STANDBY
+│       ├── audio_bar.py   # Barra nivel audio
+│       ├── text_panels.py # Paneles de texto
+│       ├── controls.py    # Botones ACTIVATE/CLEAR
+│       ├── diagnostics_screen.py
+│       └── main_screen.py # Composición principal
 │
 ├── sounds/                # Efectos de sonido
-│   └── __init__.py        # Sound manager
-│
-├── ui/                    # Interfaz gráfica
-│   └── __init__.py        # Widget de estado
-│
 ├── tests/                 # Tests unitarios
-│   ├── test_stt.py
-│   ├── test_tts.py
-│   ├── test_personality.py
-│   ├── test_memory.py
-│   ├── test_system_monitor.py
-│   ├── test_system_control.py
-│   ├── test_reminders.py
-│   ├── test_calendar.py
-│   ├── test_dev_tools.py
-│   ├── test_screen_vision.py
-│   ├── test_camera_vision.py
-│   ├── test_input_control.py
-│   ├── test_visual_automation.py
-│   └── test_sounds_ui.py
-│
-├── models/                # Modelos descargados
-│   ├── vosk-model-small-es-0.42/
-│   └── es_ES-davefx-medium.onnx
-│
-├── memory/                # Datos persistentes
-│   └── jarvis_memory.db
-│
-└── logs/                  # Logs de ejecución
+├── models/                # Modelos Vosk/Piper (gitignore)
+├── memory/                # SQLite (gitignore)
+├── logs/                  # Logs (gitignore)
+├── assets/                # Iconos
+├── docs/                  # Documentación
+└── packaging/             # Archivos .deb
+```
+
+### Arquitectura UI (Vue-style)
+
+Los componentes UI siguen principios de Vue.js:
+- **Autocontenidos**: Cada componente tiene sus estilos inline
+- **Testeables**: Cada uno tiene `if __name__ == "__main__":` para pruebas
+- **Composición**: `MainScreen` compone todos los demás componentes
+
+```bash
+# Probar componente individual
+python -m ui.components.header
+python -m ui.components.audio_bar
+python -m ui.components.main_screen
 ```
 
 ## Configuración

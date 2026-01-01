@@ -108,8 +108,15 @@ class WhisperLiveListener:
         if self._thread:
             self._thread.join(timeout=1.0)
 
+    def is_running(self) -> bool:
+        return self.running
+
     def get_audio_level(self) -> int:
         return self._audio_level
+
+    def set_device(self, device_index: Optional[int]):
+        """Change audio device (requires restart)."""
+        self.device = device_index
 
 
 if __name__ == "__main__":

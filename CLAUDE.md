@@ -2,95 +2,79 @@
 
 > Asistente de voz estilo Iron Man para Kubuntu. Claude CLI como cerebro, voz 100% local.
 
-## Estado Actual (2025-12-31)
+## Repositorios
 
-**Fases Completadas:** 1-13 (Core completo + GUI)
-**Fase Actual:** Mejoras y optimizaciones
+| Remote | URL | Propósito |
+|--------|-----|-----------|
+| `github` | https://github.com/andresgarcia0313/jarvis-assistant | Público |
+| `origin` | https://devops.ingeniumcodex.com/devops/jarvis | Privado (CI/CD) |
 
-**Repositorios:**
-- GitHub: https://github.com/andresgarcia0313/jarvis-assistant
-- Gitea: https://devops.ingeniumcodex.com/devops/jarvis
+---
 
-### Lo que funciona:
+## Estado Actual
+
+**Fases Completadas:** 1-13 (Core + GUI)
+**Historias Implementadas:** 20/20
+**Última actualización:** 2025-12-31
+
+### Funcionalidades Activas
+
 - Wake word detection (OpenWakeWord)
 - STT local (Vosk) - español
-- TTS local (Piper) - voz davefx español
+- TTS local (Piper) - voz davefx
 - Integración Claude CLI
 - Memoria persistente SQLite
 - Monitoreo del sistema
-- Control de volumen/brillo
+- Control volumen/brillo
 - Recordatorios y calendario
-- Visión de pantalla y cámara
-- Control de mouse/teclado
+- Visión pantalla/cámara
+- Control mouse/teclado
 - GUI PyQt5 estilo Iron Man HUD
 
 ---
 
-## Arquitectura de Componentes UI (Vue-style)
+## Arquitectura UI (Vue-style)
 
-La UI usa arquitectura de componentes autocontenidos similar a Vue.js.
-
-### Estructura
+Componentes autocontenidos en `ui/components/`:
 
 ```
 ui/
-├── __init__.py
-├── hud_gui.py           # GUI principal (usa MainScreen)
-├── hud_style.py         # Compatibilidad legacy (30 lineas)
+├── hud_gui.py           # GUI principal
 ├── live_listener.py     # Thread de audio
-├── jarvis_brain.py      # Logica de procesamiento
-├── config_dialog.py     # Dialogo de configuracion
+├── jarvis_brain.py      # Lógica de procesamiento
+├── config_dialog.py     # Diálogo configuración
 ├── tts_engine.py        # Motor TTS
-├── audio_devices.py     # Gestion de dispositivos
-├── audio_processor.py   # Procesamiento de audio
+├── audio_devices.py     # Gestión dispositivos
+├── audio_processor.py   # Procesamiento audio
 ├── vad_detector.py      # Voice Activity Detection
-├── beamformer.py        # Beamforming de audio
-├── logger_config.py     # Configuracion de logs
-├── diagnostics.py       # Diagnosticos del sistema
+├── beamformer.py        # Beamforming
+├── diagnostics.py       # Diagnósticos
 └── components/
-    ├── __init__.py      # Exports publicos
-    ├── theme.py         # Constantes de color (14 lineas)
-    ├── header.py        # Titulo + CONFIG + STANDBY (60 lineas)
-    ├── audio_bar.py     # Barra nivel audio (59 lineas)
-    ├── text_panels.py   # VoiceInput, AIResponse, SystemLog (139 lineas)
-    ├── controls.py      # ACTIVATE/CLEAR buttons (76 lineas)
-    ├── diagnostics_screen.py  # Pantalla diagnosticos (107 lineas)
-    └── main_screen.py   # Composicion de todo (108 lineas)
+    ├── theme.py         # Paleta de colores
+    ├── header.py        # Título + CONFIG + STANDBY
+    ├── audio_bar.py     # Barra nivel audio
+    ├── text_panels.py   # VoiceInput, AIResponse, SystemLog
+    ├── controls.py      # ACTIVATE/CLEAR
+    ├── diagnostics_screen.py
+    └── main_screen.py   # Composición principal
 ```
 
-### Principios de Componentes
-
-1. **Autocontenidos**: Cada componente tiene estilos inline
-2. **Testeables**: Cada componente tiene `if __name__ == "__main__":`
-3. **Minimal**: Codigo minimo necesario
-4. **Composicion**: MainScreen compone los demas componentes
-
-### Paleta de Colores (theme.py)
+### Paleta de Colores
 
 ```python
 CYAN = "#00d4ff"      # Principal
-GREEN = "#00ff88"     # Exito/Activo
+GREEN = "#00ff88"     # Éxito/Activo
 YELLOW = "#ffaa00"    # Advertencia
 RED = "#ff4444"       # Error
-BG = "#050a0e"        # Fondo oscuro
+BG = "#050a0e"        # Fondo
 BORDER = "#1a3a4a"    # Bordes
 TEXT = "#e0f7ff"      # Texto principal
 TEXT_DIM = "#4a6a7a"  # Texto secundario
 ```
 
-### Probar Componente Individual
-
-```bash
-cd /home/andres/Desarrollo/IA/Jarvis
-source venv/bin/activate
-python -m ui.components.header      # Probar header
-python -m ui.components.audio_bar   # Probar barra audio
-python -m ui.components.main_screen # Probar pantalla completa
-```
-
 ---
 
-## Comandos Frecuentes
+## Comandos
 
 ### Ejecutar
 
@@ -98,23 +82,24 @@ python -m ui.components.main_screen # Probar pantalla completa
 cd /home/andres/Desarrollo/IA/Jarvis
 source venv/bin/activate
 
-# GUI completa
-python jarvis_gui.py
+python jarvis_gui.py      # GUI completa
+python jarvis.py          # Solo voz
+python -m pytest tests/   # Tests
+```
 
-# Solo voz (sin GUI)
-python jarvis.py
+### Probar Componentes
 
-# Tests
-python -m pytest tests/ -v
+```bash
+python -m ui.components.header
+python -m ui.components.audio_bar
+python -m ui.components.main_screen
 ```
 
 ### Git
 
 ```bash
-git status
-git add -A
-git commit -m "feat(scope): descripcion"
-git push origin main
+git add -A && git commit -m "tipo(scope): descripción"
+git push github main && git push origin main
 ```
 
 ### Build .deb
@@ -131,100 +116,87 @@ git push origin main
 ```
 Jarvis/
 ├── jarvis.py              # Orquestador CLI
-├── jarvis_gui.py          # Punto de entrada GUI
-├── config.yaml            # Configuracion
-├── requirements.txt       # Dependencias Python
+├── jarvis_gui.py          # Entrada GUI
+├── config.yaml            # Configuración
+├── requirements.txt       # Dependencias
 ├── install.sh             # Instalador
-├── build_deb.sh           # Construccion .deb
+├── build_deb.sh           # Build .deb
 │
-├── modules/               # Logica de negocio
-│   ├── stt.py             # Speech-to-Text (Vosk)
-│   ├── tts.py             # Text-to-Speech (Piper)
-│   ├── wake_word.py       # Wake word (OpenWakeWord)
-│   ├── cli_bridge.py      # Puente a Claude CLI
-│   ├── personality.py     # Personalidad JARVIS
-│   ├── memory.py          # Memoria SQLite
+├── modules/               # Lógica de negocio
+│   ├── stt.py             # Speech-to-Text
+│   ├── tts.py             # Text-to-Speech
+│   ├── wake_word.py       # Wake word
+│   ├── cli_bridge.py      # Puente Claude CLI
+│   ├── personality.py     # Personalidad
+│   ├── memory.py          # SQLite
 │   ├── system_monitor.py  # CPU, RAM, temp
 │   ├── system_control.py  # Volumen, brillo
 │   ├── reminders.py       # Recordatorios
 │   ├── calendar_tools.py  # Calendario ICS
 │   ├── dev_tools.py       # Git, Docker
 │   ├── screen_vision.py   # Captura pantalla
-│   ├── camera_vision.py   # Captura camara
-│   ├── input_control.py   # Mouse/teclado
-│   └── visual_automation.py
+│   ├── camera_vision.py   # Captura cámara
+│   └── input_control.py   # Mouse/teclado
 │
-├── ui/                    # Interfaz grafica
-│   ├── components/        # Componentes Vue-style
-│   └── ...
-│
-├── sounds/                # Efectos de sonido
-├── tests/                 # Tests unitarios
-├── models/                # Modelos Vosk/Piper (gitignore)
+├── ui/                    # Interfaz gráfica
+├── sounds/                # Efectos
+├── tests/                 # Tests
+├── models/                # Vosk/Piper (gitignore)
 ├── memory/                # SQLite (gitignore)
 ├── logs/                  # Logs (gitignore)
 ├── assets/                # Iconos
-├── docs/                  # Documentacion
 └── packaging/             # Archivos .deb
 ```
 
 ---
 
-## Dependencias Clave
+## Dependencias
 
-| Componente | Libreria | Notas |
-|------------|----------|-------|
-| GUI | PyQt5 | Widgets y layouts |
-| STT | vosk | Modelo small-es |
-| TTS | piper-tts | Voz es_ES-davefx |
-| Wake Word | openwakeword | "Alexa" por defecto |
-| Audio | pyaudio, sounddevice | Captura mic |
-| Vision | Pillow, spectacle | Screenshots |
-| Input | xdotool | Solo X11 |
-| DB | sqlite3 | Memoria persistente |
-
----
-
-## Repositorios Git
-
-| Remote | URL | Notas |
-|--------|-----|-------|
-| github | https://github.com/andresgarcia0313/jarvis-assistant | Publico |
-| origin | https://devops.ingeniumcodex.com/devops/jarvis | Gitea privado (devops/asde71.4) |
-
-### Push cambios
-
-```bash
-git add -A
-git commit -m "tipo(scope): descripcion"
-
-# Push a ambos
-git push origin main && git push github main
-
-# O push a uno solo
-git push github main   # GitHub
-git push origin main   # Gitea
-```
+| Componente | Librería |
+|------------|----------|
+| GUI | PyQt5 |
+| STT | vosk |
+| TTS | piper-tts |
+| Wake Word | openwakeword |
+| Audio | pyaudio, sounddevice |
+| Vision | Pillow, spectacle |
+| Input | xdotool (solo X11) |
+| DB | sqlite3 |
 
 ---
 
-## Notas de Desarrollo
+## Roadmap
 
-### Al modificar UI
-1. Editar componente en `ui/components/`
-2. Probar individualmente: `python -m ui.components.NOMBRE`
-3. Probar integracion: `python jarvis_gui.py`
-4. Actualizar `build_deb.sh` si hay nuevos archivos
+### Fase 14: Integración Web (P0)
+- [ ] Clima, noticias, tráfico
+- [ ] Lectura emails (IMAP)
+- [ ] Envío emails por voz
+- [ ] Telegram/WhatsApp
+- [ ] Búsquedas web
 
-### Al agregar modulo
-1. Crear en `modules/`
-2. Agregar test en `tests/`
-3. Integrar en `jarvis.py` o `jarvis_gui.py`
+### Fase 15: Proactividad (P0)
+- [ ] Análisis de patrones
+- [ ] Sugerencias por calendario
+- [ ] Alertas contextuales
+- [ ] Recordatorios bienestar
+- [ ] Resumen matutino
 
-### Convenciones
-- Commits: `tipo(scope): descripcion`
-- Tipos: feat, fix, refactor, docs, test, chore
-- Codigo en ingles, comentarios en espanol si es necesario
+### Fase 16: Voz Natural (P1)
+- [ ] XTTS o StyleTTS2
+- [ ] Prosodia natural
+- [ ] Velocidad adaptativa
+
+### Fase 17: Home Assistant (P1)
+- [ ] Control luces
+- [ ] Control clima
+- [ ] Escenas predefinidas
+
+### Fases Futuras
+- 18: Contexto conversacional profundo (vector DB)
+- 19: Multi-room / Multi-dispositivo
+- 20: Video en tiempo real
+- 21: HUD avanzado (dashboard)
+- 22: Seguridad por voz
 
 ---
 
@@ -236,27 +208,13 @@ git push origin main   # Gitea
 
 ---
 
-## Proximos Pasos (ROADMAP.md)
+## Convenciones
 
-- Fase 14: Integracion Web (email, clima)
-- Fase 15: Proactividad (sugerencias automaticas)
-- Fase 16: Voz natural (XTTS)
-- Fase 17: Home Assistant
-
----
+- **Commits:** `tipo(scope): descripción`
+- **Tipos:** feat, fix, refactor, docs, test, chore
+- **Código:** inglés
+- **Archivos:** < 100 líneas (refactorizar si excede)
 
 ---
 
-## Historial de Cambios Recientes
-
-| Fecha | Commit | Descripción |
-|-------|--------|-------------|
-| 2025-12-31 | `748e7d2` | Configuración dual de repositorios (GitHub + Gitea) |
-| 2025-12-31 | `16c73b9` | Documentación actualizada con estado del proyecto |
-| 2025-12-31 | `addac15` | GUI PyQt5 con arquitectura Vue-style |
-| 2025-12-31 | `f4074f4` | Configuración de pytest |
-| 2025-12-31 | `d22aa89` | Orquestador principal, instalación y docs |
-
----
-
-*Ultima actualizacion: 2025-12-31*
+*Última actualización: 2025-12-31*

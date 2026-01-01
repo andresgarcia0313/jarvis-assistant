@@ -14,8 +14,9 @@ from PyQt5.QtCore import pyqtSignal, QObject, QTimer, QThread
 PROJECT_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
+import yaml
 from ui.hud_style import MAIN_STYLE, COLORS, get_status_style, get_audio_level_color
-from ui.live_listener import LiveListener
+from ui.listener_factory import create_listener_from_config
 from ui.jarvis_brain import JarvisBrain
 from ui.config_dialog import ConfigDialog
 from ui.tts_engine import TTSEngine
@@ -136,8 +137,13 @@ class JarvisHUD(QWidget):
         """Continúa a la interfaz principal después del diagnóstico."""
         logger.info("Diagnóstico completado, iniciando interfaz principal")
 
-        # Inicializar componentes de audio/voz
-        self.listener = LiveListener(self.model_path)
+        # Cargar configuración
+        config_path = PROJECT_ROOT / "config.yaml"
+        with open(config_path) as f:
+            config = yaml.safe_load(f)
+
+        # Inicializar componentes de audio/voz usando factory
+        self.listener = create_listener_from_config(config)
         self.brain = JarvisBrain()
         self.tts = TTSEngine()
         self._init_responses_file()

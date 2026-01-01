@@ -245,4 +245,18 @@ git push origin main   # Gitea
 
 ---
 
+---
+
+## Historial de Cambios Recientes
+
+| Fecha | Commit | Descripción |
+|-------|--------|-------------|
+| 2025-12-31 | `748e7d2` | Configuración dual de repositorios (GitHub + Gitea) |
+| 2025-12-31 | `16c73b9` | Documentación actualizada con estado del proyecto |
+| 2025-12-31 | `addac15` | GUI PyQt5 con arquitectura Vue-style |
+| 2025-12-31 | `f4074f4` | Configuración de pytest |
+| 2025-12-31 | `d22aa89` | Orquestador principal, instalación y docs |
+
+---
+
 *Ultima actualizacion: 2025-12-31*

@@ -299,6 +299,25 @@ Cada componente:
 - Tiene bloque `if __name__ == "__main__":` para testing
 - Sigue principio de mínimo código necesario
 
+### Sincronización Dual de Repositorios (2025-12-31)
+
+Configurados dos repositorios remotos para redundancia:
+
+| Remote | URL | Propósito |
+|--------|-----|-----------|
+| `github` | https://github.com/andresgarcia0313/jarvis-assistant | Público, visibilidad |
+| `origin` | https://devops.ingeniumcodex.com/devops/jarvis | Privado, CI/CD |
+
+**Comandos de sincronización:**
+```bash
+# Push a ambos repos
+git push github main && git push origin main
+
+# Push solo a uno
+git push github main   # GitHub
+git push origin main   # Gitea
+```
+
 ---
 
 *Última actualización: 2025-12-31*

@@ -20,7 +20,7 @@
 ### Funcionalidades Activas
 
 - Wake word detection (OpenWakeWord)
-- STT local (Vosk) - español
+- STT local (Whisper/Vosk) - español, alta precisión
 - TTS local (Piper) - voz davefx
 - Integración Claude CLI
 - Memoria persistente SQLite
@@ -155,13 +155,49 @@ Jarvis/
 | Componente | Librería |
 |------------|----------|
 | GUI | PyQt5 |
-| STT | vosk |
+| STT | faster-whisper, vosk |
 | TTS | piper-tts |
 | Wake Word | openwakeword |
 | Audio | pyaudio, sounddevice |
 | Vision | Pillow, spectacle |
 | Input | xdotool (solo X11) |
 | DB | sqlite3 |
+
+---
+
+## Arquitectura STT (Speech-to-Text)
+
+Sistema modular con soporte para múltiples motores:
+
+```
+modules/
+├── stt_whisper.py      # faster-whisper (alta precisión)
+├── stt_vosk_adapter.py # Vosk (bajo consumo)
+└── stt_factory.py      # Factory para crear motor
+
+ui/
+├── listener_whisper.py # Listener optimizado para Whisper
+├── listener_factory.py # Factory para crear listener
+└── live_listener.py    # Listener Vosk (legacy)
+```
+
+### Configuración (config.yaml)
+
+```yaml
+stt:
+  engine: "whisper"  # o "vosk"
+  whisper:
+    model_size: "tiny"  # tiny, base, small
+  vosk:
+    model_path: "models/vosk-model-small-es-0.42"
+```
+
+### Comparación
+
+| Motor | Precisión | RAM | Latencia |
+|-------|-----------|-----|----------|
+| Whisper tiny | ★★★★★ | ~150MB | ~1s |
+| Vosk small-es | ★★☆☆☆ | ~50MB | Real-time |
 
 ---
 
